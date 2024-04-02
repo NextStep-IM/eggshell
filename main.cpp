@@ -31,8 +31,8 @@ int main()
 {
     char **command;
     char *input;
-    pid_t child_pid;
-    int status;
+    pid_t child_pid{};
+    int status{};
 
     while (1)
     {
