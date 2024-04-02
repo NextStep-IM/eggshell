@@ -48,6 +48,14 @@ int main()
         input = readline("-> \033[0m"); // \033[0m = default
         command = get_input(input);
 
+        // Handles empty commands
+        if (!command[0])
+        {
+            free(input);
+            delete[] command;
+            continue;
+        }
+
         child_pid = fork();
 
         if (child_pid < 0)
