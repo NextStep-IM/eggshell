@@ -40,9 +40,12 @@ int main()
         // TODO: Only show time (not month, day, etc.)
         time_t curr_time = time(0);
         char *date_time = ctime(&curr_time);
-        std::cout.width(185); std::cout << std::right << "\033[92m" << date_time; 
 
-        input = readline("\033[92meggshell-> \033[0m"); // \033[92m = light green, \033[0m = default
+        std::cout << "\033[92meggshell"; // \033[92m = light green,
+        std::cout.width(185);
+        std::cout << std::right << date_time;
+
+        input = readline("-> \033[0m"); // \033[0m = default
         command = get_input(input);
 
         child_pid = fork();
