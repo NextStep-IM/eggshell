@@ -47,6 +47,13 @@ int main()
 
         child_pid = fork();
 
+        if (child_pid < 0)
+        {
+            std::cerr << "Error: Fork failed."
+                      << "\n";
+            return -1;
+        }
+
         if (child_pid == 0)
         {
             // Never returns if the call is successful
@@ -60,12 +67,6 @@ int main()
             }
         }
 
-        else if (child_pid < 0)
-        {
-            std::cerr << "Error: Fork failed.";
-            return -1;
-        }
-        
         else
         {
             // Wait for child process (command) to finish execution
