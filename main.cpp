@@ -24,14 +24,6 @@ char **get_input(char *input)
 
     command[index] = NULL;
 
-    // Test to check tokens stored in command array
-
-    /*std::cout << "Tokens passed to command array: ";
-    for (int i = 0; i < index; ++i)
-    {
-        std::cout << command[i] << " ";
-    }*/
-
     return command;
 }
 
