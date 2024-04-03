@@ -38,8 +38,8 @@ int main()
     {
         // Time
         // TODO: Only show time (not month, day, etc.)
-        time_t curr_time = time(0);
-        char *date_time = ctime(&curr_time);
+        /* time_t curr_time = time(0);
+        char *date_time = ctime(&curr_time); */
 
         std::cout << "\033[92meggshell"; // \033[92m = light green,
         std::cout.width(185);
