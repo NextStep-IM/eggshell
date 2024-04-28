@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <readline/readline.h>
 #include <sys/wait.h>
+#include <linux/limits.h>
 
 char **get_input(char *input)
 {
@@ -41,11 +42,13 @@ int main()
         /* time_t curr_time = time(0);
         char *date_time = ctime(&curr_time); */
 
-        std::cout << "\033[92meggshell"; // \033[92m = light green,
-        std::cout.width(185);
-        std::cout << std::right << date_time;
+        char cwd[PATH_MAX];
+        std::cout << "\033[30;44m" << getcwd(cwd, sizeof(cwd)) << "\033[0m\n";
 
-        input = readline("-> \033[0m"); // \033[0m = default
+        /* std::cout.width(185);
+        std::cout << std::right << date_time; */
+
+        input = readline("\033[92m-> \033[0m");
         command = get_input(input);
 
         // Handles empty commands
