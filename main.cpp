@@ -9,6 +9,7 @@
 char **get_input(char *input)
 {
     char **command = new char *[8]; // TODO: Check if alloacted space for char pointers should be increased/decreased
+    //char *command[ARG_MAX];
     const char *separator = " ";
     char *parsed;
     int index = 0;
@@ -26,6 +27,11 @@ char **get_input(char *input)
     command[index] = NULL;
 
     return command;
+}
+
+int cd(char *path)
+{
+    return chdir(path);
 }
 
 int main()
@@ -56,6 +62,16 @@ int main()
         {
             free(input);
             delete[] command;
+            continue;
+        }
+
+        // cd command
+        if (strcmp(command[0], "cd") == 0)
+        {
+            if (cd(command[1]) < 0)
+            {
+                std::cerr << "Error: No such file or directory.\n";
+            }
             continue;
         }
 
