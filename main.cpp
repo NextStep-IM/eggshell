@@ -42,17 +42,8 @@ int main()
 
     while (1)
     {
-        // Time
-        // TODO: Only show time (not month, day, etc.)
-        /* time_t curr_time = time(0);
-        char *date_time = ctime(&curr_time); */
-
         char cwd[PATH_MAX];
         std::cout << "\033[30;44m" << getcwd(cwd, sizeof(cwd)) << "\033[0m\n";
-
-        /* std::cout.width(185);
-        std::cout << std::right << date_time; */
-
         input = readline("\033[92m-> \033[0m");
         command = get_input(input);
 
@@ -73,6 +64,8 @@ int main()
             }
             continue;
         }
+
+        
 
         child_pid = fork();
 
