@@ -8,8 +8,7 @@
 
 char **get_input(char *input)
 {
-    char **command = new char *[8]; // TODO: Check if alloacted space for char pointers should be increased/decreased
-    //char *command[ARG_MAX];
+    char **command = new char *[8]; 
     const char *separator = " ";
     char *parsed;
     int index = 0;
