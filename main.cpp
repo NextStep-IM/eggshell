@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <fstream>
 #include <cstdlib>
 #include <unistd.h>
 #include <readline/readline.h>
@@ -34,6 +35,60 @@ int cd(char *path)
 }
 
 // argc (size of command array) is problematic.
+int create(int argc, char **argv)
+{
+    std::cout << "create command working\n";
+    int opt;
+
+    // commenting this makes the noFlag block work.
+    while (opt = getopt(argc, argv, "f:b:"))
+    {
+        switch (opt)
+        {
+        case 'b':
+            for (int i = 2; i < argc; ++i)
+            {
+                std::ofstream outputFile(argv[i]);
+
+                if (outputFile.is_open())
+                {
+                    outputFile << "#include <iostream>\nusing namespace std;\n\nint main() {\n\n\treturn 0;\n}"
+                               << "\n";
+                    outputFile.close();
+                    std::cout << argv[i] << " created\n";
+                }
+                else
+                {
+                    std::cerr << "Error: " << argv[i] << " cannot be opened"
+                              << "\n";
+                }
+            }
+            break;
+        case 'f':
+            for (int i = 2; i < argc; ++i)
+            {
+                std::ofstream outputFile(argv[i]);
+                if (outputFile.is_open())
+                {
+                    outputFile.close();
+                    std::cout << argv[i] << " created\n";
+                }
+                else
+                {
+                    std::cerr << "Error: " << argv[i] << " cannot be opened"
+                              << "\n";
+                }
+            }
+            break;
+        case '?':
+            std::cerr << "Error: Invalid Option."
+                      << "\n";
+            break;
+        }
+    }
+    return 0;
+}
+
 int main()
 {
     char **command;
@@ -68,8 +123,6 @@ int main()
             continue;
         }
 
-        
-
         child_pid = fork();
 
         if (child_pid < 0)
@@ -81,6 +134,11 @@ int main()
 
         if (child_pid == 0)
         {
+            if (strcmp(command[0], "create") == 0)
+            {
+                create(cmd_len, command);
+            }
+
             // Never returns if the call is successful
             execvp(command[0], command);
 
