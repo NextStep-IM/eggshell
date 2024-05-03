@@ -33,6 +33,7 @@ int cd(char *path)
     return chdir(path);
 }
 
+// argc (size of command array) is problematic.
 int main()
 {
     char **command;
