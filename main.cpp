@@ -47,6 +47,7 @@ int main()
         // line returned by readline is allocated with malloc
         input = readline("\033[92m-> \033[0m");
         command = get_input(input);
+        int cmd_len = sizeof(command);
 
         // Handles empty commands
         if (!command[0])
