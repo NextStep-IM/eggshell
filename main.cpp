@@ -8,7 +8,7 @@
 
 char **get_input(char *input)
 {
-    char **command = new char *[8]; 
+    char **command = new char *[8];
     const char *separator = " ";
     char *parsed;
     int index = 0;
@@ -44,6 +44,7 @@ int main()
     {
         char cwd[PATH_MAX];
         std::cout << "\033[30;44m" << getcwd(cwd, sizeof(cwd)) << "\033[0m\n";
+        // line returned by readline is allocated with malloc
         input = readline("\033[92m-> \033[0m");
         command = get_input(input);
 
