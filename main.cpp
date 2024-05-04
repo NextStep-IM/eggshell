@@ -35,9 +35,9 @@ int cd(char *path)
 }
 
 // argc (size of command array) is problematic.
-int create(int argc, char **argv)
+int cfile(int argc, char **argv)
 {
-    std::cout << "create command working\n";
+    std::cout << "cfile command working\n";
     int opt;
 
     // commenting this makes the noFlag block work.
@@ -134,9 +134,9 @@ int main()
 
         if (child_pid == 0)
         {
-            if (strcmp(command[0], "create") == 0)
+            if (strcmp(command[0], "cfile") == 0)
             {
-                create(cmd_len, command);
+                cfile(cmd_len, command);
             }
 
             // Never returns if the call is successful
