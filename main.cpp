@@ -93,6 +93,16 @@ int cfile(int argc, char **argv)
 
 int crtdir(char *dir_path)
 {
+    if (!fs::exists(dir_path))
+    {
+        fs::create_directories(dir_path);
+        std::cout << "Directory: " << dir_path << "\n";
+    }
+    else
+    {
+        std::cout << "Directory already exists";
+        return -1;
+    }
     return 0;
 }
 
