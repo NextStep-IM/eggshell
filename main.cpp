@@ -7,6 +7,7 @@
 #include <readline/readline.h>
 #include <sys/wait.h>
 #include <linux/limits.h>
+namespace fs = std::filesystem;
 
 char **get_input(char *input)
 {
