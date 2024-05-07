@@ -156,6 +156,14 @@ int main()
                 cfile(cmd_len, command);
             }
 
+            if (strcmp(command[0], "crtdir") == 0)
+            {
+                for (int i = 1; command[i] != NULL; ++i)
+                {
+                    crtdir(command[i]);
+                }
+            }
+
             // Never returns if the call is successful
             execvp(command[0], command);
 
