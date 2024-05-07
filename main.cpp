@@ -91,6 +91,11 @@ int cfile(int argc, char **argv)
     return 0;
 }
 
+int crtdir(char *dir_path)
+{
+    return 0;
+}
+
 int main()
 {
     char **command;
