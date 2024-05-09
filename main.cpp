@@ -176,6 +176,14 @@ int main()
                 }
             }
 
+            if (strcmp(command[0], "paw") == 0)
+            {
+                for (int i = 1; command[i] != NULL; ++i)
+                {
+                    paw(command[i]);
+                }
+            }
+
             // Never returns if the call is successful
             execvp(command[0], command);
 
