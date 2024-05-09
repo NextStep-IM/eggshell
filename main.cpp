@@ -100,7 +100,7 @@ int crtdir(char *dir_path)
     }
     else
     {
-        std::cout << "Directory already exists";
+        std::cout << "Directory already exists\n";
         return -1;
     }
     return 0;
