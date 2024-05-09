@@ -106,6 +106,18 @@ int crtdir(char *dir_path)
     return 0;
 }
 
+void paw(char *rd_file)
+{
+    std::cout << "Content of " << rd_file << "\n";
+    std::string text;
+    std::ifstream readFile(rd_file);
+    while (getline(readFile, text))
+    {
+        std::cout << text << "\n";
+    }
+    readFile.close();
+}
+
 int main()
 {
     char **command;
