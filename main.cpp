@@ -91,7 +91,8 @@ int cfile(int argc, char **argv)
     return 0;
 }
 
-int crtdir(char *dir_path)
+// Maybe add error_code object?
+void crtdir(char *dir_path)
 {
     if (!fs::exists(dir_path))
     {
@@ -101,9 +102,7 @@ int crtdir(char *dir_path)
     else
     {
         std::cout << "Directory already exists\n";
-        return -1;
     }
-    return 0;
 }
 
 void paw(char *rd_file)
@@ -117,6 +116,7 @@ void paw(char *rd_file)
     }
     readFile.close();
 }
+
 
 int main()
 {
