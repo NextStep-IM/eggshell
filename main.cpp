@@ -130,7 +130,7 @@ int main()
         char cwd[PATH_MAX];
         std::cout << "\033[30;44m" << getcwd(cwd, sizeof(cwd)) << "\033[0m\n";
         // line returned by readline is allocated with malloc
-        input = readline("\033[92m-> \033[0m");
+        input = readline("\033[1;92m-> \033[0m");
         command = get_input(input);
         int cmd_len = sizeof(command);
 
