@@ -139,9 +139,15 @@ int main()
     char *input;
     pid_t child_pid{};
     int status{};
+    bool firstRun = true;
 
     while (1)
     {
+        if (firstRun)
+        {
+            std::cout << "\033[1;37mWELCOME TO EGGSHELL!\033[0m\nType \"help\" to list commands\n\n";
+        }
+
         char cwd[PATH_MAX];
         std::cout << "\033[30;44m" << getcwd(cwd, sizeof(cwd)) << "\033[0m\n";
         // line returned by readline is allocated with malloc
@@ -234,6 +240,7 @@ int main()
             waitpid(child_pid, &status, WUNTRACED);
         }
 
+        firstRun = false;
         free(input);
         delete[] command;
     }
