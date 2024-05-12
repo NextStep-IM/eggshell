@@ -199,6 +199,24 @@ int main()
                 }
             }
 
+            if (strcmp(command[0], "exp") == 0)
+            {
+                // Checks if there are arguments
+                if (command[1])
+                {
+                    for (int i = 1; command[i] != NULL; ++i)
+                    {
+                        fs::path targetPath = command[i];
+                        exp(targetPath);
+                    }
+                }
+                else
+                {
+                    fs::path targetPath = fs::current_path();
+                    exp(targetPath);
+                }
+            }
+
             // Never returns if the call is successful
             execvp(command[0], command);
 
