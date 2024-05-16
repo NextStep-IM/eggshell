@@ -150,6 +150,16 @@ void del(fs::path target)
     }
 }
 
+void help()
+{
+    std::cout << "exp    -    List directory content\n"
+              << "paw    -    Display file content\n"
+              << "cpy    -    Copy files and directories\n"
+              << "crtdir -    Create directories\n"
+              << "cfile  -    Create files\n"
+              << "cd     -    Change directory\n";
+}
+
 int main()
 {
     char **command;
