@@ -201,7 +201,9 @@ void help()
               << "cpy    -    Copy files and directories\n"
               << "crtdir -    Create directories\n"
               << "cfile  -    Create files\n"
-              << "cd     -    Change directory\n";
+              << "cd     -    Change directory\n"
+              << "del    -    Delete files and directories\n"
+              << "mov    -    Move files and directories\n";
 }
 
 int main()
