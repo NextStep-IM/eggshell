@@ -240,6 +240,14 @@ int main()
                 }
             }
 
+            else if (strcmp(command[0], "del") == 0)
+            {
+                for (int i = 1; command[i] != NULL; ++i)
+                {
+                    del(command[i]);
+                }
+            }
+
             else
             {
                 std::cerr << command[0] << ": Command not found" << "\n";
