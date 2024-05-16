@@ -150,6 +150,37 @@ void del(fs::path target)
     }
 }
 
+// Issue: can't copy directory as a whole, only its contents and sub-directories
+void cpy(fs::path &src, fs::path &dest)
+{
+    std::error_code ec;
+    if (fs::is_regular_file(src))
+    {
+        fs::copy(src, dest, fs::copy_options::skip_existing, ec);
+        if (ec)
+        {
+            std::cerr << "Error copying file: " << ec.message() << "\n";
+        }
+        else
+        {
+            std::cout << "Success: File copied to " << dest << "\n";
+        }
+    }
+    else if (fs::is_directory(src))
+    {
+        fs::copy(src, dest, fs::copy_options::recursive | fs::copy_options::skip_existing, ec);
+        if (ec)
+        {
+            std::cerr << "Error copying directory: " << ec.message() << "\n";
+        }
+        else
+        {
+            std::cout << "Success: Directory copied to " << dest << "\n";
+        }
+    }
+}
+
+
 void help()
 {
     std::cout << "exp    -    List directory content\n"
