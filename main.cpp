@@ -289,6 +289,28 @@ int main()
                 }
             }
 
+            else if (strcmp(command[0], "cpy") == 0)
+            {
+                fs::path dest;
+                int i;
+                for (i = 1; command[i] != NULL; ++i)
+                {
+                    if (command[i + 1] == NULL)
+                    {
+                        dest = command[i];
+                        std::cout << "Destination: " << dest << "\n";
+                        break;
+                    }
+                }
+                for (int j = 1; j < i; ++j)
+                {
+                    fs::path src = command[j];
+                    std::cout << "Source file/directory: " << src << "\n";
+                    cpy(src, dest);
+                }
+            }
+
+
             else if (strcmp(command[0], "help") == 0)
             {
                 help();
