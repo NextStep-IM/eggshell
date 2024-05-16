@@ -180,6 +180,19 @@ void cpy(fs::path &src, fs::path &dest)
     }
 }
 
+void mov(fs::path old_path, fs::path new_path)
+{
+    std::error_code ec;
+    fs::rename(old_path, new_path, ec);
+    if (ec)
+    {
+        std::cout << "Error: " << ec.message() << "\n";
+    }
+    else
+    {
+        std::cout << old_path.filename() << " renamed to " << new_path.filename() << "\n";
+    }
+}
 
 void help()
 {
