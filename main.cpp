@@ -133,6 +133,23 @@ void exp(fs::path &target)
     }
 }
 
+void del(fs::path target)
+{
+    std::error_code eCode;
+    if (fs::is_regular_file(target))
+    {
+        fs::remove(target);
+    }
+    else if (fs::is_directory(target))
+    {
+        fs::remove_all(target);
+    }
+    else
+    {
+        std::cout << "Error: " << target << " does not exist." << "\n";
+    }
+}
+
 int main()
 {
     char **command;
