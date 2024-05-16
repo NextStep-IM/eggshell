@@ -356,14 +356,6 @@ int main()
                 std::cerr << command[0] << ": Command not found" << "\n";
             }
 
-            // Never returns if the call is successful
-            execvp(command[0], command);
-
-            if (execvp(command[0], command) < 0)
-            {
-                std::cerr << "Error: Invalid input."
-                          << "\n";
-                return -1;
             }
         }
 
