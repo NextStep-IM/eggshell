@@ -329,6 +329,26 @@ int main()
                 help();
             }
 
+            else if (strcmp(command[0], "mov") == 0)
+            {
+                fs::path new_path;
+                int i;
+                // to find new path/last argument
+                for (i = 1; command[i] != NULL; ++i)
+                {
+                    if (command[i + 1] == NULL)
+                    {
+                        new_path = command[i];
+                        break;
+                    }
+                }
+
+                for (int j = 1; j < i; ++j)
+                {
+                    mov(command[j], new_path);
+                }
+            }
+
             else
             {
                 std::cerr << command[0] << ": Command not found" << "\n";
