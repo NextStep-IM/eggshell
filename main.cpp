@@ -353,9 +353,7 @@ int main()
 
             else
             {
-                std::cerr << command[0] << ": Command not found" << "\n";
-            }
-
+                std::cerr << "\033[31m" << command[0] << ": Command not found" << "\033[0m\n";
             }
         }
 
