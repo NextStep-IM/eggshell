@@ -258,6 +258,11 @@ int main()
                 }
             }
 
+            else if (strcmp(command[0], "help") == 0)
+            {
+                help();
+            }
+
             else
             {
                 std::cerr << command[0] << ": Command not found" << "\n";
