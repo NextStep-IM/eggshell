@@ -206,7 +206,7 @@ int main()
                 cfile(cmd_len, command);
             }
 
-            if (strcmp(command[0], "crtdir") == 0)
+            else if (strcmp(command[0], "crtdir") == 0)
             {
                 for (int i = 1; command[i] != NULL; ++i)
                 {
@@ -214,7 +214,7 @@ int main()
                 }
             }
 
-            if (strcmp(command[0], "paw") == 0)
+            else if (strcmp(command[0], "paw") == 0)
             {
                 for (int i = 1; command[i] != NULL; ++i)
                 {
@@ -222,7 +222,7 @@ int main()
                 }
             }
 
-            if (strcmp(command[0], "exp") == 0)
+            else if (strcmp(command[0], "exp") == 0)
             {
                 // Checks if there are arguments
                 if (command[1])
@@ -238,6 +238,11 @@ int main()
                     fs::path targetPath = fs::current_path();
                     exp(targetPath);
                 }
+            }
+
+            else
+            {
+                std::cerr << command[0] << ": Command not found" << "\n";
             }
 
             // Never returns if the call is successful
