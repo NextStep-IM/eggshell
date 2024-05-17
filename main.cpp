@@ -37,8 +37,17 @@ int cd(char *path)
 }
 
 // argc (size of command array) is problematic.
+int cfile(char *fileName)
 {
+    std::ofstream outputFile(fileName);
+    if (outputFile.is_open())
     {
+        outputFile.close();
+        return 1;
+    }
+    else
+    {
+        return -1;
     }
 }
 
