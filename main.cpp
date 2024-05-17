@@ -365,10 +365,6 @@ void del(fs::path target)
             return;
         }
     }
-    /* else
-    {
-        std::cerr << "Error: " << target << " does not exist." << "\n";
-    } */
 }
 
 // Issue: can't copy directory as a whole, only its contents and sub-directories
@@ -393,7 +389,6 @@ void cpy(fs::path src, fs::path dest)
             std::cerr << "Error: " << eCode.message() << "\n";
             return;
         }
-
     }
     else if (fs::is_directory(src))
     {
