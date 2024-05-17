@@ -192,6 +192,7 @@ int main()
         if (firstRun)
         {
             std::cout << "\033[1;37mWELCOME TO EGGSHELL!\033[0m\nType \"help\" to list commands\n\n";
+            firstRun = false;
         }
 
         char cwd[PATH_MAX];
@@ -352,7 +353,6 @@ int main()
             waitpid(child_pid, &status, WUNTRACED);
         }
 
-        firstRun = false;
         free(input);
         delete[] command;
     }
