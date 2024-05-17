@@ -37,58 +37,9 @@ int cd(char *path)
 }
 
 // argc (size of command array) is problematic.
-int cfile(int argc, char **argv)
 {
-    std::cout << "cfile command working\n";
-    int opt;
-
-    // commenting this makes the noFlag block work.
-    while (opt = getopt(argc, argv, "f:b:"))
     {
-        switch (opt)
-        {
-        case 'b':
-            for (int i = 2; i < argc; ++i)
-            {
-                std::ofstream outputFile(argv[i]);
-
-                if (outputFile.is_open())
-                {
-                    outputFile << "#include <iostream>\nusing namespace std;\n\nint main() {\n\n\treturn 0;\n}"
-                               << "\n";
-                    outputFile.close();
-                    std::cout << argv[i] << " created\n";
-                }
-                else
-                {
-                    std::cerr << "Error: " << argv[i] << " cannot be opened"
-                              << "\n";
-                }
-            }
-            break;
-        case 'f':
-            for (int i = 2; i < argc; ++i)
-            {
-                std::ofstream outputFile(argv[i]);
-                if (outputFile.is_open())
-                {
-                    outputFile.close();
-                    std::cout << argv[i] << " created\n";
-                }
-                else
-                {
-                    std::cerr << "Error: " << argv[i] << " cannot be opened"
-                              << "\n";
-                }
-            }
-            break;
-        case '?':
-            std::cerr << "Error: Invalid Option."
-                      << "\n";
-            break;
-        }
     }
-    return 0;
 }
 
 // Maybe add error_code object?
@@ -259,7 +210,6 @@ int main()
         {
             if (strcmp(command[0], "cfile") == 0)
             {
-                cfile(cmd_len, command);
             }
 
             else if (strcmp(command[0], "crtdir") == 0)
