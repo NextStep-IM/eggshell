@@ -18,11 +18,13 @@ const std::string RESET = "\033[0m",
                   BOLD_BLUE_FG = "\033[1;34m",
                   BOLD_YELLOW_FG = "\033[1;33m";
 
+// Function Prototypes
+
 char **get_input(char *input);
 int cd(char *path);
-int cfile(char *fileName);
-void crtdir(char *dir_path);
-void paw(char *rd_file);
+int cfile(fs::path fileName);
+void crtdir(fs::path dir_path);
+void paw(fs::path readFile);
 void exp(fs::path target);
 void del(fs::path target);
 void cpy(fs::path src, fs::path dest);
@@ -202,6 +204,7 @@ int main()
     return 0;
 }
 
+// Function Definitions
 
 char **get_input(char *input)
 {
@@ -231,7 +234,7 @@ int cd(char *path)
 }
 
 // argc (size of command array) is problematic.
-int cfile(char *fileName)
+int cfile(fs::path fileName)
 {
     std::ofstream outputFile(fileName);
     if (outputFile.is_open())
@@ -246,7 +249,7 @@ int cfile(char *fileName)
 }
 
 // Maybe add error_code object?
-void crtdir(char *dir_path)
+void crtdir(fs::path dir_path)
 {
     if (!fs::exists(dir_path))
     {
@@ -259,7 +262,7 @@ void crtdir(char *dir_path)
     }
 }
 
-void paw(char *rd_file)
+void paw(fs::path readFile)
 {
     std::cout << "Content of " << rd_file << "\n";
     std::cout << BOLD_YELLOW_FG << readFile << RESET << "\n";
