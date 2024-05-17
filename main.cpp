@@ -183,10 +183,8 @@ void help()
 
 int main()
 {
-    char **command;
-    char *input;
-    pid_t child_pid{};
-    int status{};
+    char **command, *input;
+    int status, child_pid;
     bool firstRun = true;
 
     while (1)
