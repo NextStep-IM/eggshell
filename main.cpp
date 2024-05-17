@@ -276,8 +276,7 @@ int main()
                 {
                     for (int i = 1; command[i] != NULL; ++i)
                     {
-                        fs::path targetPath = command[i];
-                        exp(targetPath);
+                        exp(command[i]);
                     }
                 }
                 else
