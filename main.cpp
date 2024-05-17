@@ -143,14 +143,29 @@ void cpy(fs::path &src, fs::path &dest)
 void mov(fs::path old_path, fs::path new_path)
 {
     std::error_code ec;
-    fs::rename(old_path, new_path, ec);
-    if (ec)
+    if (fs::is_regular_file(old_path) && fs::is_directory(new_path))
     {
-        std::cout << "Error: " << ec.message() << "\n";
+        cpy(old_path, new_path);
+        del(old_path);
+    }
+    else if (fs::is_directory(old_path) && fs::is_directory(new_path) && fs::exists(new_path))
+    {
+        fs::path combinedPath = new_path / old_path.filename();
+        fs::create_directory(combinedPath);
+        cpy(old_path, combinedPath);
+        del(old_path);
     }
     else
     {
-        std::cout << old_path.filename() << " renamed to " << new_path.filename() << "\n";
+        fs::rename(old_path, new_path, ec);
+        if (ec)
+        {
+            std::cerr << ec.message() << "\n";
+        }
+        else
+        {
+            std::cout << old_path.filename() << " renamed to " << new_path.filename() << "\n";
+        }
     }
 }
 
