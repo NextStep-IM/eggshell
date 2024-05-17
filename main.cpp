@@ -221,6 +221,17 @@ int main()
             {
                 if (command[1])
                 {
+                    for (int i = 1; command[i] != NULL; ++i)
+                    {
+                        if (cfile(command[i]) < 0)
+                        {
+                            std::cerr << "Error: " << command[i] << " cannot be opened" << "\n";
+                        }
+                        else
+                        {
+                            std::cout << command[i] << " created\n";
+                        }
+                    }
                 }
                 else
                 {
