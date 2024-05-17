@@ -31,7 +31,6 @@ void cpy(fs::path src, fs::path dest);
 void mov(fs::path old_path, fs::path new_path);
 void help();
 
-
 int main()
 {
     char **command, *input;
@@ -102,22 +101,39 @@ int main()
                 else
                 {
                     std::cerr << "Error: missing file name" << "\n";
+                    break;
                 }
             }
 
             else if (strcmp(command[0], "crtdir") == 0)
             {
-                for (int i = 1; command[i] != NULL; ++i)
+                if (command[1])
                 {
-                    crtdir(command[i]);
+                    for (int i = 1; command[i] != NULL; ++i)
+                    {
+                        crtdir(command[i]);
+                    }
+                }
+                else
+                {
+                    std::cerr << "Error: missing file name" << "\n";
+                    break;
                 }
             }
 
             else if (strcmp(command[0], "paw") == 0)
             {
-                for (int i = 1; command[i] != NULL; ++i)
+                if (command[1])
                 {
-                    paw(command[i]);
+                    for (int i = 1; command[i] != NULL; ++i)
+                    {
+                        paw(command[i]);
+                    }
+                }
+                else
+                {
+                    std::cerr << "Error: missing file name" << "\n";
+                    break;
                 }
             }
 
@@ -140,25 +156,41 @@ int main()
 
             else if (strcmp(command[0], "del") == 0)
             {
-                for (int i = 1; command[i] != NULL; ++i)
+                if (command[1])
                 {
-                    del(command[i]);
+                    for (int i = 1; command[i] != NULL; ++i)
+                    {
+                        del(command[i]);
+                    }
+                }
+                else
+                {
+                    std::cerr << "Error: missing file name" << "\n";
+                    break;
                 }
             }
 
             else if (strcmp(command[0], "cpy") == 0)
             {
-                int i;
-                for (i = 1; command[i] != NULL; ++i)
+                if (command[1])
                 {
-                    if (command[i + 1] == NULL)
+                    int i;
+                    for (i = 1; command[i] != NULL; ++i)
                     {
-                        break;
+                        if (command[i + 1] == NULL)
+                        {
+                            break;
+                        }
+                    }
+                    for (int j = 1; j < i; ++j)
+                    {
+                        cpy(command[j], command[i]);
                     }
                 }
-                for (int j = 1; j < i; ++j)
+                else
                 {
-                    cpy(command[j], command[i]);
+                    std::cerr << "Error: missing file name" << "\n";
+                    break;
                 }
             }
 
@@ -169,19 +201,26 @@ int main()
 
             else if (strcmp(command[0], "mov") == 0)
             {
-                int i;
-                // to find new path/last argument
-                for (i = 1; command[i] != NULL; ++i)
+                if (command[1])
                 {
-                    if (command[i + 1] == NULL)
+                    int i;
+                    // to find new path/last argument
+                    for (i = 1; command[i] != NULL; ++i)
                     {
-                        break;
+                        if (command[i + 1] == NULL)
+                        {
+                            break;
+                        }
+                    }
+                    for (int j = 1; j < i; ++j)
+                    {
+                        mov(command[j], command[i]);
                     }
                 }
-
-                for (int j = 1; j < i; ++j)
+                else
                 {
-                    mov(command[j], command[i]);
+                    std::cerr << "Error: missing file name" << "\n";
+                    break;
                 }
             }
 
@@ -240,7 +279,7 @@ int cfile(fs::path fileName)
     if (outputFile.is_open())
     {
         outputFile.close();
-        return 1;
+        return 0;
     }
     else
     {
@@ -264,15 +303,17 @@ void crtdir(fs::path dir_path)
 
 void paw(fs::path readFile)
 {
-    std::cout << "Content of " << rd_file << "\n";
+    if (!fs::exists(readFile))
+    {
+        std::cerr << "Error: " << readFile << " does not exist." << "\n";
+        return;
+    }
     std::cout << BOLD_YELLOW_FG << readFile << RESET << "\n";
     std::string text;
-    std::ifstream readFile(rd_file);
-    while (getline(readFile, text))
+    std::ifstream File(readFile);
     {
         std::cout << text << "\n";
     }
-    readFile.close();
 }
 
 void exp(fs::path target)
