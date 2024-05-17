@@ -9,6 +9,14 @@
 #include <linux/limits.h>
 namespace fs = std::filesystem;
 
+// Color Codes
+
+const std::string RESET = "\033[0m",
+                  WHITE_FG = "\033[1;37m",
+                  BLACK_ON_BLUE = "\033[30;44m",
+                  RED_FG = "\033[31m",
+                  BOLD_BLUE_FG = "\033[1;34m",
+                  BOLD_YELLOW_FG = "\033[1;33m";
 
 char **get_input(char *input);
 int cd(char *path);
@@ -32,12 +40,13 @@ int main()
     {
         if (firstRun)
         {
-            std::cout << "\033[1;37mWELCOME TO EGGSHELL!\033[0m\nType \"help\" to list commands\n\n";
+            std::cout << WHITE_FG << "WELCOME TO EGGSHELL!\n"
+                      << RESET << "Type \"help\" to list commands\n\n";
             firstRun = false;
         }
 
         char cwd[PATH_MAX];
-        std::cout << "\033[30;44m" << getcwd(cwd, sizeof(cwd)) << "\033[0m\n";
+        std::cout << BLACK_ON_BLUE << getcwd(cwd, sizeof(cwd)) << RESET << "\n";
         // line returned by readline is allocated with malloc
         input = readline("\033[1;92m-> \033[0m");
         command = get_input(input);
@@ -176,7 +185,7 @@ int main()
 
             else
             {
-                std::cerr << "\033[31m" << command[0] << ": Command not found" << "\033[0m\n";
+                std::cerr << RED_FG << command[0] << ": Command not found" << RESET << "\n";
             }
         }
 
@@ -253,6 +262,7 @@ void crtdir(char *dir_path)
 void paw(char *rd_file)
 {
     std::cout << "Content of " << rd_file << "\n";
+    std::cout << BOLD_YELLOW_FG << readFile << RESET << "\n";
     std::string text;
     std::ifstream readFile(rd_file);
     while (getline(readFile, text))
@@ -273,7 +283,7 @@ void exp(fs::path target)
         }
         else if (dir_entry.is_directory())
         {
-            std::cout << "\033[1;34m" << dir_entry.path().filename().string() << "\033[0m\n";
+            std::cout << BOLD_BLUE_FG << dir_entry.path().filename().string() << RESET << "\n";
         }
     }
 }
