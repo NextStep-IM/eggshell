@@ -219,6 +219,13 @@ int main()
         {
             if (strcmp(command[0], "cfile") == 0)
             {
+                if (command[1])
+                {
+                }
+                else
+                {
+                    std::cerr << "Error: missing file name" << "\n";
+                }
             }
 
             else if (strcmp(command[0], "crtdir") == 0)
@@ -283,7 +290,6 @@ int main()
                     cpy(src, dest);
                 }
             }
-
 
             else if (strcmp(command[0], "help") == 0)
             {
