@@ -340,12 +340,20 @@ void exp(fs::path target)
 void del(fs::path target)
 {
     std::error_code eCode;
+
+    if (!fs::exists(target))
+    {
+        std::cerr << "Error: " << target << " does not exist." << "\n";
+        return;
+    }
+
     if (fs::is_regular_file(target))
     {
         fs::remove(target, eCode);
         if (eCode)
         {
             std::cerr << "Error: " << eCode.message() << "\n";
+            return;
         }
     }
     else if (fs::is_directory(target))
@@ -354,6 +362,7 @@ void del(fs::path target)
         if (eCode)
         {
             std::cerr << "Error: " << eCode.message() << "\n";
+            return;
         }
     }
     /* else
