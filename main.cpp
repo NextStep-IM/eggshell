@@ -311,9 +311,14 @@ void paw(fs::path readFile)
     std::cout << BOLD_YELLOW_FG << readFile << RESET << "\n";
     std::string text;
     std::ifstream File(readFile);
+    int line = 1;
+    while (getline(File, text))
     {
-        std::cout << text << "\n";
+        std::cout << line << "| " << text << "\n";
+        ++line;
     }
+    File.close();
+    std::cout << "\n";
 }
 
 void exp(fs::path target)
