@@ -10,6 +10,7 @@
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",
+                "utilities.cpp",
                 "-lreadline"
             ],
             "options": {
