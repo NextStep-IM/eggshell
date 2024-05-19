@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <readline/readline.h>
 #include <sys/wait.h>
-#include <linux/limits.h>
+#include <climits>
 namespace fs = std::filesystem;
 
 // Color Codes
