@@ -323,7 +323,7 @@ void paw(fs::path readFile)
 void exp(fs::path target)
 {
     // Iterates through the contents of the target directory (non-recursively)
-    for (auto dir_entry : fs::directory_iterator(target))
+    for (auto const dir_entry : fs::directory_iterator(target))
     {
         if (dir_entry.is_regular_file())
         {
