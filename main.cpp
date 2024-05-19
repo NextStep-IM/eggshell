@@ -60,16 +60,6 @@ int main()
             continue;
         }
 
-        // cd command
-        if (strcmp(command[0], "cd") == 0)
-        {
-            if (cd(command[1]) < 0)
-            {
-                std::cerr << "Error: No such file or directory.\n";
-            }
-            continue;
-        }
-
         child_pid = fork();
 
         if (child_pid < 0)
@@ -102,6 +92,16 @@ int main()
                     std::cerr << "Error: missing file name" << "\n";
                     break;
                 }
+            }
+
+            // change directory command
+            else if (strcmp(command[0], "cd") == 0)
+            {
+                if (cd(command[1]) < 0)
+                {
+                    std::cerr << "Error: No such file or directory.\n";
+                }
+                continue;
             }
 
             else if (strcmp(command[0], "crtdir") == 0)
