@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <string>
 #include <cstring>
 #include <fstream>
 #include <filesystem>
@@ -13,7 +15,8 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    char **command, *input;
+    std::vector<std::string> command;
+    std::string input;
     int status, child_pid;
     bool firstRun = true;
 
@@ -28,15 +31,26 @@ int main()
 
         char cwd[PATH_MAX];
         std::cout << BLACK_ON_BLUE << getcwd(cwd, sizeof(cwd)) << RESET << "\n";
+
         // line returned by readline is allocated with malloc
-        input = readline("\033[1;92m-> \033[0m");
+        char *temp_input;
+        temp_input = readline("\033[1;92m-> \033[0m");
+        input = temp_input;
+        free(temp_input);
+
         command = get_input(input);
 
-        // Handles empty commands
-        if (!command[0])
+        /* FOR DEBUGGING ONLY. 
+        std::cout << BOLD_YELLOW_FG << "Command: " << RESET;
+        for (auto token : command)
         {
-            free(input);
-            delete[] command;
+            std::cout << token << " ";
+        }
+        std::cout << "\n"; */
+
+        // Handles empty commands
+        if (command.empty())
+        {
             continue;
         }
 
@@ -51,11 +65,11 @@ int main()
 
         if (child_pid == 0)
         {
-            if (strcmp(command[0], "cfile") == 0)
+            if (command[0] == "cfile")
             {
-                if (command[1])
+                if (command.size() > 1)
                 {
-                    for (int i = 1; command[i] != NULL; ++i)
+                    for (int i = 1; i < command.size(); ++i)
                     {
                         if (cfile(command[i]) < 0)
                         {
@@ -75,20 +89,20 @@ int main()
             }
 
             // change directory command
-            else if (strcmp(command[0], "cd") == 0)
+            else if (command[0] == "cd")
             {
                 if (cd(command[1]) < 0)
                 {
                     std::cerr << "Error: No such file or directory.\n";
                 }
-                continue;
+                // continue;
             }
 
-            else if (strcmp(command[0], "crtdir") == 0)
+            else if (command[0] == "crtdir")
             {
-                if (command[1])
+                if (command.size() > 1)
                 {
-                    for (int i = 1; command[i] != NULL; ++i)
+                    for (int i = 1; i < command.size(); ++i)
                     {
                         crtdir(command[i]);
                     }
@@ -100,11 +114,11 @@ int main()
                 }
             }
 
-            else if (strcmp(command[0], "paw") == 0)
+            else if (command[0] == "paw")
             {
-                if (command[1])
+                if (command.size() > 1)
                 {
-                    for (int i = 1; command[i] != NULL; ++i)
+                    for (int i = 1; i < command.size(); ++i)
                     {
                         paw(command[i]);
                     }
@@ -116,28 +130,37 @@ int main()
                 }
             }
 
-            else if (strcmp(command[0], "exp") == 0)
+            else if (command[0] == "exp")
             {
+                /* FOR DEBUGGING ONLY.
+                            std::cout << "command[0] == exp\n";
+                            std::cout << command[1] << "\n";
+                            std::cout << command.size() << "\n";
+                */
+
                 // Checks if there are arguments
-                if (command[1])
+                if (command.size() > 1)
                 {
-                    for (int i = 1; command[i] != NULL; ++i)
+                    //std::cout << "argument provided\n";
+                    for (int i = 1; i < command.size(); ++i)
                     {
+                        // fs::path target = command.at(i);
                         exp(command[i]);
                     }
                 }
                 else
                 {
+                    //std::cout << "no argument provided\n";
                     fs::path targetPath = fs::current_path();
                     exp(targetPath);
                 }
             }
 
-            else if (strcmp(command[0], "del") == 0)
+            else if (command[0] == "del")
             {
-                if (command[1])
+                if (command.size() > 1)
                 {
-                    for (int i = 1; command[i] != NULL; ++i)
+                    for (int i = 1; i < command.size(); ++i)
                     {
                         del(command[i]);
                     }
@@ -149,15 +172,16 @@ int main()
                 }
             }
 
-            else if (strcmp(command[0], "cpy") == 0)
+            else if (command[0] == "cpy")
             {
-                if (command[1])
+                if (command.size() > 1)
                 {
                     int i;
-                    for (i = 1; command[i] != NULL; ++i)
+                    for (i = 1; i < command.size(); ++i)
                     {
-                        if (command[i + 1] == NULL)
+                        if (i + 1 == command.size())
                         {
+                            //std::cout << "i = " << i << "\ncommand.size() = " << command.size() << "\n";
                             break;
                         }
                     }
@@ -173,20 +197,20 @@ int main()
                 }
             }
 
-            else if (strcmp(command[0], "help") == 0)
+            else if (command[0] == "help")
             {
                 help();
             }
 
-            else if (strcmp(command[0], "mov") == 0)
+            else if (command[0] == "mov")
             {
-                if (command[1])
+                if (command.size() > 1)
                 {
                     int i;
                     // to find new path/last argument
-                    for (i = 1; command[i] != NULL; ++i)
+                    for (i = 1; i < command.size(); ++i)
                     {
-                        if (command[i + 1] == NULL)
+                        if (i + 1 == command.size())
                         {
                             break;
                         }
@@ -215,10 +239,7 @@ int main()
             waitpid(child_pid, &status, WUNTRACED);
         }
 
-        free(input);
-        delete[] command;
     }
 
     return 0;
 }
-

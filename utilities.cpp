@@ -1,6 +1,9 @@
 #include <iostream>
+#include <vector>
+#include <sstream>
 #include <fstream>
 #include <cstring>
+#include <string>
 #include <filesystem>
 #include <unistd.h>
 #include "utilities.h"
@@ -9,11 +12,18 @@ namespace fs = std::filesystem;
 
 // Function Definitions
 
-char **get_input(char *input)
+std::vector<std::string> get_input(std::string input)
 {
-    char **command = new char *[8];
-    const char *separator = " ";
-    char *parsed;
+    std::vector<std::string> command;
+    std::istringstream iss(input);
+    std::string token;
+
+    while (iss >> token)
+    {
+        command.push_back(token);
+    }
+    //const char *separator = " ";
+    /* char *parsed;
     int index = 0;
 
     parsed = strtok(input, separator); // strtok returns pointer to next token
@@ -26,14 +36,15 @@ char **get_input(char *input)
         parsed = strtok(NULL, separator); // Gets the next token i.e. the token before second separator
     }
 
-    command[index] = NULL;
+    command[index] = NULL; */
 
     return command;
 }
 
-int cd(char *path)
+int cd(fs::path dir_path)
 {
-    return chdir(path);
+    std::string path = dir_path.string();
+    return chdir(path.c_str());
 }
 
 // argc (size of command array) is problematic.
@@ -87,6 +98,7 @@ void paw(fs::path readFile)
 
 void exp(fs::path target)
 {
+    //std::cout << "exp command working.\n"; 
     // Iterates through the contents of the target directory (non-recursively)
     for (auto const dir_entry : fs::directory_iterator(target))
     {
@@ -176,6 +188,7 @@ void mov(fs::path old_path, fs::path new_path)
     else if (fs::is_directory(old_path) && fs::is_directory(new_path) && fs::exists(new_path))
     {
         fs::path combinedPath = new_path / old_path.filename();
+        std::cout << combinedPath << "\n";
         fs::create_directory(combinedPath);
         cpy(old_path, combinedPath);
         del(old_path);

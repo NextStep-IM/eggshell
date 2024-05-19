@@ -3,8 +3,8 @@
 namespace fs = std::filesystem;
 // Function Prototypes
 
-char **get_input(char *input);
-int cd(char *path);
+std::vector<std::string> get_input(std::string input);
+int cd(fs::path dir_path);
 int cfile(fs::path fileName);
 void crtdir(fs::path dir_path);
 void paw(fs::path readFile);
