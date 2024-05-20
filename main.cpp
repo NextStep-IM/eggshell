@@ -37,9 +37,9 @@ int main()
         input = temp_input;
         free(temp_input);
 
-        command = get_input(input);
+        command = getInput(input);
 
-        /* FOR DEBUGGING ONLY. 
+        /* FOR DEBUGGING ONLY.
         std::cout << BOLD_YELLOW_FG << "Command: " << RESET;
         for (auto token : command)
         {
