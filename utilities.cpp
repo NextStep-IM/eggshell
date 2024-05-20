@@ -21,22 +21,6 @@ std::vector<std::string> getInput(std::string input)
     {
         command.push_back(token);
     }
-    //const char *separator = " ";
-    /* char *parsed;
-    int index = 0;
-
-    parsed = strtok(input, separator); // strtok returns pointer to next token
-    while (parsed != NULL)
-    {
-        command[index] = parsed;
-        index++;
-
-        // NULL argument instructs compiler to use source c-string
-        parsed = strtok(NULL, separator); // Gets the next token i.e. the token before second separator
-    }
-
-    command[index] = NULL; */
-
     return command;
 }
 
@@ -97,8 +81,8 @@ void paw(fs::path readFile)
 
 void exp(fs::path target)
 {
-    //std::cout << "exp command working.\n"; 
-    // Iterates through the contents of the target directory (non-recursively)
+    // std::cout << "exp command working.\n";
+    //  Iterates through the contents of the target directory (non-recursively)
     for (auto const dir_entry : fs::directory_iterator(target))
     {
         if (dir_entry.is_regular_file())
@@ -216,4 +200,173 @@ void help()
               << "cd     -    Change directory\n"
               << "del    -    Delete files and directories\n"
               << "mov    -    Move files and directories\n";
+}
+
+void cmdCheck(std::vector<std::string> command)
+{
+    if (command[0] == "cfile")
+    {
+        if (command.size() > 1)
+        {
+            for (int i = 1; i < command.size(); ++i)
+            {
+                if (cfile(command[i]) < 0)
+                {
+                    std::cerr << "Error: " << command[i] << " cannot be opened" << "\n";
+                }
+                else
+                {
+                    std::cout << command[i] << " created\n";
+                }
+            }
+        }
+        else
+        {
+            std::cerr << "Error: missing file name" << "\n";
+            return;
+        }
+    }
+
+    // change directory command
+    else if (command[0] == "cd")
+    {
+        if (cd(command[1]) < 0)
+        {
+            std::cerr << "Error: No such file or directory.\n";
+        }
+        // continue;
+    }
+
+    else if (command[0] == "crtdir")
+    {
+        if (command.size() > 1)
+        {
+            for (int i = 1; i < command.size(); ++i)
+            {
+                crtdir(command[i]);
+            }
+        }
+        else
+        {
+            std::cerr << "Error: missing file name" << "\n";
+            return;
+        }
+    }
+
+    else if (command[0] == "paw")
+    {
+        if (command.size() > 1)
+        {
+            for (int i = 1; i < command.size(); ++i)
+            {
+                paw(command[i]);
+            }
+        }
+        else
+        {
+            std::cerr << "Error: missing file name" << "\n";
+            return;
+        }
+    }
+
+    else if (command[0] == "exp")
+    {
+        /* FOR DEBUGGING ONLY.
+                    std::cout << "command[0] == exp\n";
+                    std::cout << command[1] << "\n";
+                    std::cout << command.size() << "\n";
+        */
+
+        // Checks if there are arguments
+        if (command.size() > 1)
+        {
+            // std::cout << "argument provided\n";
+            for (int i = 1; i < command.size(); ++i)
+            {
+                // fs::path target = command.at(i);
+                exp(command[i]);
+            }
+        }
+        else
+        {
+            // std::cout << "no argument provided\n";
+            fs::path targetPath = fs::current_path();
+            exp(targetPath);
+        }
+    }
+
+    else if (command[0] == "del")
+    {
+        if (command.size() > 1)
+        {
+            for (int i = 1; i < command.size(); ++i)
+            {
+                del(command[i]);
+            }
+        }
+        else
+        {
+            std::cerr << "Error: missing file name" << "\n";
+            return;
+        }
+    }
+
+    else if (command[0] == "cpy")
+    {
+        if (command.size() > 1)
+        {
+            int i;
+            for (i = 1; i < command.size(); ++i)
+            {
+                if (i + 1 == command.size())
+                {
+                    // std::cout << "i = " << i << "\ncommand.size() = " << command.size() << "\n";
+                    break;
+                }
+            }
+            for (int j = 1; j < i; ++j)
+            {
+                cpy(command[j], command[i]);
+            }
+        }
+        else
+        {
+            std::cerr << "Error: missing file name" << "\n";
+            return;
+        }
+    }
+
+    else if (command[0] == "help")
+    {
+        help();
+    }
+
+    else if (command[0] == "mov")
+    {
+        if (command.size() > 1)
+        {
+            int i;
+            // to find new path/last argument
+            for (i = 1; i < command.size(); ++i)
+            {
+                if (i + 1 == command.size())
+                {
+                    break;
+                }
+            }
+            for (int j = 1; j < i; ++j)
+            {
+                mov(command[j], command[i]);
+            }
+        }
+        else
+        {
+            std::cerr << "Error: missing file name" << "\n";
+            return;
+        }
+    }
+    else
+    {
+        std::cerr << RED_FG << command[0] << ": Command not found" << RESET << "\n";
+    }
 }

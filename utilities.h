@@ -13,5 +13,6 @@ void del(fs::path target);
 void cpy(fs::path src, fs::path dest);
 void mov(fs::path old_path, fs::path new_path);
 void help();
+void cmdCheck(std::vector<std::string> command);
 
 #endif
