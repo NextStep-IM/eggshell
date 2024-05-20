@@ -16,7 +16,7 @@ int main()
 {
     std::vector<std::string> command;
     std::string input;
-    int status, child_pid;
+    int status{}, child_pid{};
     bool firstRun = true;
 
     while (1)
