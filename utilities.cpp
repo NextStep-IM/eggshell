@@ -202,6 +202,7 @@ void help()
               << "mov    -    Move files and directories\n";
 }
 
+// Function: Check command availability
 void cmdCheck(std::vector<std::string> command)
 {
     if (command[0] == "cfile")
@@ -227,7 +228,6 @@ void cmdCheck(std::vector<std::string> command)
         }
     }
 
-    // change directory command
     else if (command[0] == "cd")
     {
         if (cd(command[1]) < 0)
@@ -365,6 +365,7 @@ void cmdCheck(std::vector<std::string> command)
             return;
         }
     }
+    
     else
     {
         std::cerr << RED_FG << command[0] << ": Command not found" << RESET << "\n";
