@@ -11,7 +11,7 @@ namespace fs = std::filesystem;
 
 // Function Definitions
 
-std::vector<std::string> get_input(std::string input)
+std::vector<std::string> getInput(std::string input)
 {
     std::vector<std::string> command;
     std::istringstream iss(input);
