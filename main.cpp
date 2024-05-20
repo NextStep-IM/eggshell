@@ -28,8 +28,7 @@ int main()
             firstRun = false;
         }
 
-        char cwd[PATH_MAX];
-        std::cout << BLACK_ON_BLUE << getcwd(cwd, sizeof(cwd)) << RESET << "\n";
+        std::cout << BLACK_ON_BLUE << fs::current_path().string() << RESET << "\n";
 
         // line returned by readline is allocated with malloc
         char *temp_input = nullptr;
