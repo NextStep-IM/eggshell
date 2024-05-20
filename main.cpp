@@ -32,7 +32,7 @@ int main()
         std::cout << BLACK_ON_BLUE << getcwd(cwd, sizeof(cwd)) << RESET << "\n";
 
         // line returned by readline is allocated with malloc
-        char *temp_input;
+        char *temp_input = nullptr;
         temp_input = readline("\033[1;92m-> \033[0m");
         input = temp_input;
         free(temp_input);
