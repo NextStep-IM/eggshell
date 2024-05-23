@@ -8,7 +8,6 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <sys/wait.h>
-#include <climits>
 #include "utilities.h"
 #include "colors.h"
 namespace fs = std::filesystem;
