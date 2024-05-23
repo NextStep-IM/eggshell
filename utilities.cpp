@@ -11,6 +11,7 @@ namespace fs = std::filesystem;
 
 // Function Definitions
 
+// Parses the input from user
 std::vector<std::string> getInput(std::string input)
 {
     std::vector<std::string> command;
@@ -24,13 +25,14 @@ std::vector<std::string> getInput(std::string input)
     return command;
 }
 
-int cd(fs::path dir_path)
+// Changes current working directory
+int cd(fs::path dirPath)
 {
-    std::string path = dir_path.string();
+    std::string path = dirPath.string();
     return chdir(path.c_str());
 }
 
-// argc (size of command array) is problematic.
+// Creates files
 int cfile(fs::path fileName)
 {
     std::ofstream outputFile(fileName);
@@ -45,13 +47,15 @@ int cfile(fs::path fileName)
     }
 }
 
-// Maybe add error_code object?
-void crtdir(fs::path dir_path)
+// Creates directories
+void crtdir(fs::path dirPath)
 {
-    if (!fs::exists(dir_path))
+    // Maybe add error_code object?
+
+    if (!fs::exists(dirPath))
     {
-        fs::create_directories(dir_path);
-        std::cout << "Directory: " << dir_path << "\n";
+        fs::create_directories(dirPath);
+        std::cout << "Directory: " << dirPath << "\n";
     }
     else
     {
@@ -59,6 +63,7 @@ void crtdir(fs::path dir_path)
     }
 }
 
+// Reads files
 void paw(fs::path readFile)
 {
     if (!fs::exists(readFile))
@@ -79,6 +84,7 @@ void paw(fs::path readFile)
     std::cout << "\n";
 }
 
+// List directory content
 void exp(fs::path target)
 {
     // std::cout << "exp command working.\n";
@@ -96,6 +102,7 @@ void exp(fs::path target)
     }
 }
 
+// Delete files and directories
 void del(fs::path target)
 {
     std::error_code eCode;
@@ -126,6 +133,7 @@ void del(fs::path target)
     }
 }
 
+// Copy files and directories
 // Issue: can't copy directory as a whole, only its contents and sub-directories
 void cpy(fs::path src, fs::path dest)
 {
@@ -160,6 +168,7 @@ void cpy(fs::path src, fs::path dest)
     }
 }
 
+// Move files and directories
 void mov(fs::path old_path, fs::path new_path)
 {
     std::error_code ec;
@@ -190,6 +199,7 @@ void mov(fs::path old_path, fs::path new_path)
     }
 }
 
+// Show list of directories
 void help()
 {
     std::cout << "exp    -    List directory content\n"
@@ -202,7 +212,7 @@ void help()
               << "mov    -    Move files and directories\n";
 }
 
-// Function: Check command availability
+// Checks command availability
 void cmdCheck(std::vector<std::string> command)
 {
     if (command[0] == "cfile")
