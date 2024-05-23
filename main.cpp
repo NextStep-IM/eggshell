@@ -14,10 +14,10 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    std::vector<std::string> command;
-    std::string input;
-    int status{}, child_pid{};
-    bool firstRun = true;
+    std::vector<std::string> command{};
+    std::string input{};
+    int status{}, childPid{};
+    bool firstRun {true};
 
     while (1)
     {
