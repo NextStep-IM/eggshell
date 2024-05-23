@@ -32,14 +32,14 @@ int main()
         std::cout << BLACK_ON_BLUE << fs::current_path().string() << RESET << "\n";
 
         // line returned by readline is allocated with malloc
-        char *temp_input = nullptr;
-        temp_input = readline("\033[1;92m-> \033[0m");
-        input = temp_input;
-        free(temp_input);
+        char *tempInput = nullptr;
+        tempInput = readline(prompt);
         if (*tempInput)
         {
             add_history(tempInput);
         }
+        input = tempInput;
+        free(tempInput);
 
         command = getInput(input);
 
