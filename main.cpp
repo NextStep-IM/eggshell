@@ -30,7 +30,7 @@ int main()
         }
 
         std::cout << BLACK_ON_BLUE << fs::current_path().string() << RESET << "\n";
-
+    
         // line returned by readline is allocated with malloc
         char *tempInput = nullptr;
         tempInput = readline(prompt);
@@ -57,23 +57,23 @@ int main()
             continue;
         }
 
-        child_pid = fork();
+        childPid = fork();
 
-        if (child_pid < 0)
+        if (childPid < 0)
         {
             std::cerr << "Error: Fork failed."
                       << "\n";
             return -1;
         }
 
-        if (child_pid == 0)
+        if (childPid == 0)
         {
             cmdCheck(command);
         }
         else
         {
             // Wait for child process (command) to finish execution
-            waitpid(child_pid, &status, WUNTRACED);
+            waitpid(childPid, &status, WUNTRACED);
         }
     }
     return 0;
