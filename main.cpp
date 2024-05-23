@@ -18,6 +18,7 @@ int main()
     std::string input{};
     int status{}, childPid{};
     bool firstRun {true};
+    const char* prompt {"\033[1;92m→ \033[0m"};
 
     while (1)
     {
