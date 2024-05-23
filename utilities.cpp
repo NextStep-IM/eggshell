@@ -18,7 +18,7 @@ std::vector<std::string> getInput(std::string input)
     std::istringstream iss(input);
     std::string token;
 
-    while (iss >> token)
+    while (iss >> std::quoted(token))
     {
         command.push_back(token);
     }
@@ -375,9 +375,49 @@ void cmdCheck(std::vector<std::string> command)
             return;
         }
     }
-    
+
+    else if (command[0] == "grep")
+    {
+        if (command.size() > 1)
+        {
+            for (int i = 2; i < command.size(); ++i)
+            {
+                grep(command[1], command[i]);
+            }
+        }
+        else
+        {
+            std::cerr << "Invalid Argument" << "\n"
+                      << "Usage: grep [PATTERN] [FILENAME]" << "\n";
+            return;
+        }
+    }
+
     else
     {
         std::cerr << RED_FG << command[0] << ": Command not found" << RESET << "\n";
+    }
+}
+
+void grep(std::string pattern, fs::path filePath)
+{
+    //std::error_code eCode;
+    if (fs::exists(filePath) && fs::is_regular_file(filePath))
+    {
+        std::ifstream readFile(filePath);
+        if (!readFile.is_open())
+        {
+            std::cerr << filePath << " could not be opened." << "\n";
+        }
+
+        std::string line;
+        while (std::getline(readFile, line))
+        {
+            if (line.find(pattern) != std::string::npos)
+            {
+                std::cout << BOLD_YELLOW_FG << filePath.filename().string() << RESET << ":  " << line << "\n";
+            }
+        }
+        readFile.close();
     }
 }

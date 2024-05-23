@@ -14,5 +14,6 @@ void cpy(fs::path, fs::path);
 void mov(fs::path, fs::path);
 void help();
 void cmdCheck(std::vector<std::string>);
+void grep(std::string, fs::path);
 
 #endif
