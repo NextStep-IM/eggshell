@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 #include <sys/wait.h>
 #include <climits>
 #include "utilities.h"
@@ -35,6 +36,10 @@ int main()
         temp_input = readline("\033[1;92m-> \033[0m");
         input = temp_input;
         free(temp_input);
+        if (*tempInput)
+        {
+            add_history(tempInput);
+        }
 
         command = getInput(input);
 
