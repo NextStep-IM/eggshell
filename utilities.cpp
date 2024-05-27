@@ -178,7 +178,7 @@ void mov(fs::path old_path, fs::path new_path)
         cpy(old_path, new_path);
         del(old_path);
     }
-    else if (fs::is_directory(old_path) && fs::is_directory(new_path) && fs::exists(new_path))
+    else if (fs::is_directory(old_path) && fs::is_directory(new_path))
     {
         fs::path combinedPath = new_path / old_path.filename();
         std::cout << combinedPath << "\n";
