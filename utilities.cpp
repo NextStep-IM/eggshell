@@ -404,7 +404,23 @@ int cmdCheck(std::vector<std::string> command)
     else
     {
         std::cerr << RED_FG << command[0] << ": Command not found" << RESET << "\n";
+
+        /* std::vector<char *> cStrings;
+        cStrings.reserve(command.size());
+        for (auto const i : command)
+        {
+            cStrings.push_back(const_cast<char *>(i.c_str()));
+        }
+
+        // Never returns if the call is successful
+        if (execvp(cStrings[0], &cStrings[0]) < 0)
+        {
+            std::cerr << RED_FG << "eggshell: " << cStrings[0] << " not found" << RESET 
+                      << "\n";
+            return -1;
+        } */
     }
+    return 0;
 }
 
 void grep(std::string pattern, fs::path filePath)
