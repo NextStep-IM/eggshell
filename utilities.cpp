@@ -18,6 +18,7 @@ std::vector<std::string> getInput(std::string input)
     std::istringstream iss(input);
     std::string token;
 
+    // std::quoted removes the quotes around an argument and passes it as a whole
     while (iss >> std::quoted(token))
     {
         command.push_back(token);
