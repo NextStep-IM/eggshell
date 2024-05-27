@@ -393,6 +393,11 @@ void cmdCheck(std::vector<std::string> command)
         }
     }
 
+    else if (command[0] == "clean")
+    {
+        clean();
+    }
+
     else
     {
         std::cerr << RED_FG << command[0] << ": Command not found" << RESET << "\n";
@@ -420,4 +425,8 @@ void grep(std::string pattern, fs::path filePath)
         }
         readFile.close();
     }
+
+void clean()
+{
+    system("clear");
 }
