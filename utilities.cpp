@@ -425,7 +425,7 @@ int cmdCheck(std::vector<std::string> command)
 
 void grep(std::string pattern, fs::path filePath)
 {
-    //std::error_code eCode;
+    // std::error_code eCode;
     if (fs::exists(filePath) && fs::is_regular_file(filePath))
     {
         std::ifstream readFile(filePath);
@@ -444,6 +444,7 @@ void grep(std::string pattern, fs::path filePath)
         }
         readFile.close();
     }
+}
 
 void clean()
 {
