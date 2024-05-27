@@ -214,7 +214,7 @@ void help()
 }
 
 // Checks command availability
-void cmdCheck(std::vector<std::string> command)
+int cmdCheck(std::vector<std::string> command)
 {
     if (command[0] == "cfile")
     {
@@ -225,6 +225,7 @@ void cmdCheck(std::vector<std::string> command)
                 if (cfile(command[i]) < 0)
                 {
                     std::cerr << "Error: " << command[i] << " cannot be opened" << "\n";
+                    return -1;
                 }
                 else
                 {
@@ -235,7 +236,7 @@ void cmdCheck(std::vector<std::string> command)
         else
         {
             std::cerr << "Error: missing file name" << "\n";
-            return;
+            return -1;
         }
     }
 
@@ -244,6 +245,7 @@ void cmdCheck(std::vector<std::string> command)
         if (cd(command[1]) < 0)
         {
             std::cerr << "Error: No such file or directory.\n";
+            return -1;
         }
         // continue;
     }
@@ -260,7 +262,7 @@ void cmdCheck(std::vector<std::string> command)
         else
         {
             std::cerr << "Error: missing file name" << "\n";
-            return;
+            return -1;
         }
     }
 
@@ -276,7 +278,7 @@ void cmdCheck(std::vector<std::string> command)
         else
         {
             std::cerr << "Error: missing file name" << "\n";
-            return;
+            return -1;
         }
     }
 
@@ -318,7 +320,7 @@ void cmdCheck(std::vector<std::string> command)
         else
         {
             std::cerr << "Error: missing file name" << "\n";
-            return;
+            return -1;
         }
     }
 
@@ -343,7 +345,7 @@ void cmdCheck(std::vector<std::string> command)
         else
         {
             std::cerr << "Error: missing file name" << "\n";
-            return;
+            return -1;
         }
     }
 
@@ -373,7 +375,7 @@ void cmdCheck(std::vector<std::string> command)
         else
         {
             std::cerr << "Error: missing file name" << "\n";
-            return;
+            return -1;
         }
     }
 
@@ -390,7 +392,7 @@ void cmdCheck(std::vector<std::string> command)
         {
             std::cerr << "Invalid Argument" << "\n"
                       << "Usage: grep [PATTERN] [FILENAME]" << "\n";
-            return;
+            return -1;
         }
     }
 
