@@ -49,7 +49,7 @@ int cfile(fs::path fileName)
 }
 
 // Creates directories
-void crtdir(fs::path dirPath)
+void createDir(fs::path dirPath)
 {
     // Maybe add error_code object?
 
@@ -86,7 +86,7 @@ void paw(fs::path readFile)
 }
 
 // List directory content
-void exp(fs::path target)
+void listDirContent(fs::path target)
 {
     // std::cout << "exp command working.\n";
     //  Iterates through the contents of the target directory (non-recursively)
@@ -256,7 +256,7 @@ int cmdCheck(std::vector<std::string> command)
         {
             for (int i = 1; i < command.size(); ++i)
             {
-                crtdir(command[i]);
+                createDir(command[i]);
             }
         }
         else
@@ -297,14 +297,14 @@ int cmdCheck(std::vector<std::string> command)
             for (int i = 1; i < command.size(); ++i)
             {
                 // fs::path target = command.at(i);
-                exp(command[i]);
+                listDirContent(command[i]);
             }
         }
         else
         {
             // std::cout << "no argument provided\n";
             fs::path targetPath = fs::current_path();
-            exp(targetPath);
+            listDirContent(targetPath);
         }
     }
 
