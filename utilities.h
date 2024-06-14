@@ -4,17 +4,17 @@ namespace fs = std::filesystem;
 // Function Prototypes
 
 std::vector<std::string> getInput(std::string);
-int cd(fs::path);
-int cfile(fs::path);
+int changeDir(fs::path);
+int createFile(fs::path);
 void createDir(fs::path);
-void paw(fs::path);
+void readFileContent(fs::path);
 void listDirContent(fs::path);
-void del(fs::path);
-void cpy(fs::path, fs::path);
-void mov(fs::path, fs::path);
+void deleteFile(fs::path);
+void copyFile(fs::path, fs::path);
+void moveFile(fs::path, fs::path);
 void help();
 int cmdCheck(std::vector<std::string>);
-void grep(std::string, fs::path);
-void clean();
+void findPattern(std::string, fs::path);
+void clearScreen();
 
 #endif

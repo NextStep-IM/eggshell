@@ -27,14 +27,14 @@ std::vector<std::string> getInput(std::string input)
 }
 
 // Changes current working directory
-int cd(fs::path dirPath)
+int changeDir(fs::path dirPath)
 {
     std::string path = dirPath.string();
     return chdir(path.c_str());
 }
 
 // Creates files
-int cfile(fs::path fileName)
+int createFile(fs::path fileName)
 {
     std::ofstream outputFile(fileName);
     if (outputFile.is_open())
@@ -65,7 +65,7 @@ void createDir(fs::path dirPath)
 }
 
 // Reads files
-void paw(fs::path readFile)
+void readFileContent(fs::path readFile)
 {
     if (!fs::exists(readFile))
     {
@@ -104,7 +104,7 @@ void listDirContent(fs::path target)
 }
 
 // Delete files and directories
-void del(fs::path target)
+void deleteFile(fs::path target)
 {
     std::error_code eCode;
 
@@ -136,7 +136,7 @@ void del(fs::path target)
 
 // Copy files and directories
 // Issue: can't copy directory as a whole, only its contents and sub-directories
-void cpy(fs::path src, fs::path dest)
+void copyFile(fs::path src, fs::path dest)
 {
     if (!fs::exists(dest))
     {
@@ -170,21 +170,21 @@ void cpy(fs::path src, fs::path dest)
 }
 
 // Move files and directories
-void mov(fs::path old_path, fs::path new_path)
+void moveFile(fs::path old_path, fs::path new_path)
 {
     std::error_code ec;
     if (fs::is_regular_file(old_path) && fs::is_directory(new_path))
     {
-        cpy(old_path, new_path);
-        del(old_path);
+        copyFile(old_path, new_path);
+        deleteFile(old_path);
     }
     else if (fs::is_directory(old_path) && fs::is_directory(new_path))
     {
         fs::path combinedPath = new_path / old_path.filename();
         std::cout << combinedPath << "\n";
         fs::create_directory(combinedPath);
-        cpy(old_path, combinedPath);
-        del(old_path);
+        copyFile(old_path, combinedPath);
+        deleteFile(old_path);
     }
     else
     {
@@ -222,7 +222,7 @@ int cmdCheck(std::vector<std::string> command)
         {
             for (int i = 1; i < command.size(); ++i)
             {
-                if (cfile(command[i]) < 0)
+                if (createFile(command[i]) < 0)
                 {
                     std::cerr << "Error: " << command[i] << " cannot be opened" << "\n";
                     return -1;
@@ -242,7 +242,7 @@ int cmdCheck(std::vector<std::string> command)
 
     else if (command[0] == "cd")
     {
-        if (cd(command[1]) < 0)
+        if (changeDir(command[1]) < 0)
         {
             std::cerr << "Error: No such file or directory.\n";
             return -1;
@@ -272,7 +272,7 @@ int cmdCheck(std::vector<std::string> command)
         {
             for (int i = 1; i < command.size(); ++i)
             {
-                paw(command[i]);
+                readFileContent(command[i]);
             }
         }
         else
@@ -314,7 +314,7 @@ int cmdCheck(std::vector<std::string> command)
         {
             for (int i = 1; i < command.size(); ++i)
             {
-                del(command[i]);
+                deleteFile(command[i]);
             }
         }
         else
@@ -339,7 +339,7 @@ int cmdCheck(std::vector<std::string> command)
             }
             for (int j = 1; j < i; ++j)
             {
-                cpy(command[j], command[i]);
+                copyFile(command[j], command[i]);
             }
         }
         else
@@ -369,7 +369,7 @@ int cmdCheck(std::vector<std::string> command)
             }
             for (int j = 1; j < i; ++j)
             {
-                mov(command[j], command[i]);
+                moveFile(command[j], command[i]);
             }
         }
         else
@@ -385,7 +385,7 @@ int cmdCheck(std::vector<std::string> command)
         {
             for (int i = 2; i < command.size(); ++i)
             {
-                grep(command[1], command[i]);
+                findPattern(command[1], command[i]);
             }
         }
         else
@@ -398,7 +398,7 @@ int cmdCheck(std::vector<std::string> command)
 
     else if (command[0] == "clean")
     {
-        clean();
+        clearScreen();
     }
 
     else
@@ -423,7 +423,7 @@ int cmdCheck(std::vector<std::string> command)
     return 0;
 }
 
-void grep(std::string pattern, fs::path filePath)
+void findPattern(std::string pattern, fs::path filePath)
 {
     // std::error_code eCode;
     if (fs::exists(filePath) && fs::is_regular_file(filePath))
@@ -446,7 +446,7 @@ void grep(std::string pattern, fs::path filePath)
     }
 }
 
-void clean()
+void clearScreen()
 {
     system("clear");
 }
